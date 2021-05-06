@@ -6,6 +6,13 @@ import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.vfs.VirtualFile
 import kotlin.reflect.KProperty
 
+fun <K, V> Map<K?, V>.filterKeysNotNull(): Map<K, V> =
+  entries.fold(mutableMapOf()) { map, (key, value) ->
+    if (key != null) {
+      map[key] = value
+    }
+    map
+  }
 
 val VirtualFile.document: Document?
   get() = FileDocumentManager.getInstance().getDocument(this)

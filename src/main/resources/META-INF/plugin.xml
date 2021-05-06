@@ -10,6 +10,16 @@
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
+        <notification.group id="notification.group.onlynewwarningsplugin"
+                            groupId="notification.group.onlynewwarningsplugin"/>
+
         <checkinHandlerFactory implementation="com.github.borispristupa.onlynewwarningsplugin.checkin.MyCheckinHandlerFactory"/>
     </extensions>
+
+    <actions>
+        <action id="com.github.borispristupa.onlynewwarningsplugin.action.ShowNewProblemsAction"
+          class="com.github.borispristupa.onlynewwarningsplugin.action.ShowNewProblemsAction">
+            <add-to-group group-id="InspectCodeGroup" anchor="last"/>
+        </action>
+    </actions>
 </idea-plugin>
