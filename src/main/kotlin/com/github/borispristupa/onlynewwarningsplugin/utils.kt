@@ -1,7 +1,15 @@
 package com.github.borispristupa.onlynewwarningsplugin
 
 import com.intellij.ide.util.PropertiesComponent
+import com.intellij.openapi.editor.Document
+import com.intellij.openapi.fileEditor.FileDocumentManager
+import com.intellij.openapi.vfs.VirtualFile
 import kotlin.reflect.KProperty
+
+
+val VirtualFile.document: Document?
+  get() = FileDocumentManager.getInstance().getDocument(this)
+
 
 class BooleanProperty(id: String, private val defaultValue: Boolean) {
   private val id = "com.github.borispristupa.onlynewwarningsplugin.settings.$id"
