@@ -1,19 +1,10 @@
 <idea-plugin>
     <id>com.github.borispristupa.onlynewwarningsplugin</id>
-    <name>only-new-warnings-plugin</name>
+    <name>Only-New-Warnings</name>
     <vendor>borispristupa</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.borispristupa.onlynewwarningsplugin.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.borispristupa.onlynewwarningsplugin.services.MyProjectService"/>
-    </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.borispristupa.onlynewwarningsplugin.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
 </idea-plugin>
