@@ -14,6 +14,17 @@
                             groupId="notification.group.onlynewwarningsplugin"/>
 
         <checkinHandlerFactory implementation="com.github.borispristupa.onlynewwarningsplugin.checkin.MyCheckinHandlerFactory"/>
+
+        <projectConfigurable
+          id="com.github.borispristupa.onlynewwarningsplugin.settings.MySettingsPage"
+          instance="com.github.borispristupa.onlynewwarningsplugin.settings.MySettingsPage"
+          groupId="editor"
+          bundle="messages.MyBundle"
+          key="configurable.com.github.borispristupa.onlynewwarningsplugin.SettingsPage.displayName"
+        />
+
+        <projectService serviceImplementation="com.github.borispristupa.onlynewwarningsplugin.settings.MySettings"
+            id="com.github.borispristupa.onlynewwarningsplugin.settings.MySettings" />
     </extensions>
 
     <actions>

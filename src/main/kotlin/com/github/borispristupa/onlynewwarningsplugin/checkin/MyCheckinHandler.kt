@@ -6,6 +6,8 @@ import com.github.borispristupa.onlynewwarningsplugin.analysis.FileMap
 import com.github.borispristupa.onlynewwarningsplugin.analysis.Highlights
 import com.github.borispristupa.onlynewwarningsplugin.analysis.findNewProblems
 import com.github.borispristupa.onlynewwarningsplugin.analysis.showProblems
+import com.github.borispristupa.onlynewwarningsplugin.settings.MySettingsPage
+import com.intellij.openapi.options.ShowSettingsUtil
 import com.intellij.openapi.progress.ProcessCanceledException
 import com.intellij.openapi.project.DumbService
 import com.intellij.openapi.ui.Messages
@@ -15,8 +17,12 @@ import com.intellij.openapi.vcs.changes.CommitExecutor
 import com.intellij.openapi.vcs.changes.ui.BooleanCommitOption
 import com.intellij.openapi.vcs.checkin.CheckinHandler
 import com.intellij.openapi.vcs.ui.RefreshableOnComponent
+import com.intellij.ui.HyperlinkLabel
 import com.intellij.util.PairConsumer
 import com.intellij.util.ui.UIUtil
+import java.awt.BorderLayout
+import javax.swing.JComponent
+import javax.swing.JPanel
 
 class MyCheckinHandler(private val panel: CheckinProjectPanel) : CheckinHandler() {
   private val project = panel.project
@@ -26,10 +32,24 @@ class MyCheckinHandler(private val panel: CheckinProjectPanel) : CheckinHandler(
   }
 
   override fun getBeforeCheckinConfigurationPanel(): RefreshableOnComponent =
-    BooleanCommitOption(
+    object : BooleanCommitOption(
       panel, MyBundle.message("checkin.handler.option.text"),
       true, ::enabled
-    )
+    ) {
+      override fun getComponent(): JComponent {
+        val configureLabel = HyperlinkLabel(MyBundle.message("checkin.handler.option.configure")).apply {
+          addHyperlinkListener {
+            ShowSettingsUtil.getInstance()
+              .showSettingsDialog(project, MySettingsPage::class.java)
+          }
+        }
+
+        return JPanel(BorderLayout(4, 0)).apply {
+          add(checkBox, BorderLayout.WEST)
+          add(configureLabel, BorderLayout.CENTER)
+        }
+      }
+    }
 
   override fun beforeCheckin(executor: CommitExecutor?, p: PairConsumer<Any, Any>?): ReturnResult {
     if (!enabled) return ReturnResult.COMMIT

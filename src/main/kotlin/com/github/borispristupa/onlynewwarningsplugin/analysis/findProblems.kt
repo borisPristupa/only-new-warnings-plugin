@@ -1,11 +1,12 @@
 package com.github.borispristupa.onlynewwarningsplugin.analysis
 
 import com.github.borispristupa.onlynewwarningsplugin.document
+import com.github.borispristupa.onlynewwarningsplugin.settings.MySettings
 import com.intellij.codeInsight.daemon.DaemonCodeAnalyzerSettings
 import com.intellij.codeInsight.daemon.impl.DaemonCodeAnalyzerEx
 import com.intellij.codeInsight.daemon.impl.DaemonProgressIndicator
 import com.intellij.codeInsight.daemon.impl.HighlightInfo
-import com.intellij.lang.annotation.HighlightSeverity
+import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
@@ -36,7 +37,8 @@ fun findProblems(
 
   return ProgressManager.getInstance().runProcess(Computable {
     filterInfos(
-      doFindProblems(project, psiFile, document, daemonIndicator)
+      doFindProblems(project, psiFile, document, daemonIndicator),
+      project
     )
   }, daemonIndicator)
 }
@@ -62,10 +64,13 @@ private fun doFindProblems(
 }
 
 
-private fun filterInfos(infos: Collection<HighlightInfo>): Highlights = infos.filter { info ->
-  info.severity in listOf(
-    HighlightSeverity.ERROR,
-    HighlightSeverity.WARNING,
-    HighlightSeverity.WEAK_WARNING
-  )
+private fun filterInfos(
+  infos: Collection<HighlightInfo>,
+  project: Project
+): Highlights {
+  val severities = project.service<MySettings>().severities
+
+  return infos.filter { info ->
+    severities.find { it.severity == info.severity }?.isSelected ?: false
+  }
 }
