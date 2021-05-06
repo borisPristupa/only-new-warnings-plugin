@@ -7,4 +7,9 @@
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
+    <resource-bundle>messages.MyBundle</resource-bundle>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <checkinHandlerFactory implementation="com.github.borispristupa.onlynewwarningsplugin.checkin.MyCheckinHandlerFactory"/>
+    </extensions>
 </idea-plugin>
