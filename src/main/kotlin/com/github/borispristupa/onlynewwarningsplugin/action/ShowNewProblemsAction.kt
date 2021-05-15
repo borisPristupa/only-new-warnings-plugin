@@ -26,12 +26,24 @@ class ShowNewProblemsAction : AnAction() {
       val problems = findNewProblems(changes, project)
       showProblems(problems, project)
 
+      if (problems.values.any { it.isNotEmpty() }) {
+        showProblems(problems, project)
+      } else {
+        notifyOnNoNewProblems(project)
+      }
     } catch (e: ProcessCanceledException) {
       notifyOnCancellation(project)
     } catch (e: Exception) {
       notifyOnFailure(project, e)
       throw e
     }
+  }
+
+  private fun notifyOnNoNewProblems(project: Project) {
+    val group = NotificationGroup.balloonGroup("notification.group.onlynewwarningsplugin")
+
+    SingletonNotificationManager(group, NotificationType.INFORMATION)
+      .notify(MyBundle.message("action.show.new.problems.nothing.found.notification.text"), project)
   }
 
   private fun notifyOnCancellation(project: Project) {
