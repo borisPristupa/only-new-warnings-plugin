@@ -66,7 +66,7 @@ private fun findNewProblems(
   }
 
   val newProblemsInChanged =
-    oldFilesCurrentFiles.mapIndexed { i, (oldFile, currentFile, rangeFixer) ->
+    oldFilesCurrentFiles.mapIndexedNotNull { i, (oldFile, currentFile, rangeFixer) ->
       indicator.text = VcsBundle.message(
         "searching.for.code.smells.processing.file.progress.text",
         currentFile.presentableUrl
@@ -84,7 +84,7 @@ private fun findNewProblems(
         }
       }
 
-      currentFile to newProblems
+      (currentFile to newProblems).takeIf { newProblems.isNotEmpty() }
     }
 
   val newProblemsInCreated = createdFiles.mapIndexed { i, file ->
