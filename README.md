@@ -1,8 +1,8 @@
 # only-new-warnings-plugin
 
 ![Build](https://github.com/borisPristupa/only-new-warnings-plugin/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+[![Version](https://img.shields.io/jetbrains/plugin/v/16870-only-new-warnings.svg)](https://plugins.jetbrains.com/plugin/16870-only-new-warnings)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/16870-only-new-warnings.svg)](https://plugins.jetbrains.com/plugin/16870-only-new-warnings)
 
 ## Template ToDo list
 - [x] Create a new [IntelliJ Platform Plugin Template][template] project.
