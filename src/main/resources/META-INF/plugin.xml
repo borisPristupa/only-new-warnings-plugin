@@ -1,19 +1,36 @@
 <idea-plugin>
     <id>com.github.borispristupa.onlynewwarningsplugin</id>
-    <name>only-new-warnings-plugin</name>
+    <name>Only-New-Warnings</name>
     <vendor>borispristupa</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
+    <resource-bundle>messages.MyBundle</resource-bundle>
+
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.borispristupa.onlynewwarningsplugin.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.borispristupa.onlynewwarningsplugin.services.MyProjectService"/>
+        <notification.group id="notification.group.onlynewwarningsplugin"
+                            groupId="notification.group.onlynewwarningsplugin"/>
+
+        <checkinHandlerFactory implementation="com.github.borispristupa.onlynewwarningsplugin.checkin.MyCheckinHandlerFactory"/>
+
+        <projectConfigurable
+          id="com.github.borispristupa.onlynewwarningsplugin.settings.MySettingsPage"
+          instance="com.github.borispristupa.onlynewwarningsplugin.settings.MySettingsPage"
+          groupId="editor"
+          bundle="messages.MyBundle"
+          key="configurable.com.github.borispristupa.onlynewwarningsplugin.SettingsPage.displayName"
+        />
+
+        <projectService serviceImplementation="com.github.borispristupa.onlynewwarningsplugin.settings.MySettings"
+            id="com.github.borispristupa.onlynewwarningsplugin.settings.MySettings" />
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.borispristupa.onlynewwarningsplugin.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+    <actions>
+        <action id="com.github.borispristupa.onlynewwarningsplugin.action.ShowNewProblemsAction"
+          class="com.github.borispristupa.onlynewwarningsplugin.action.ShowNewProblemsAction">
+            <add-to-group group-id="InspectCodeGroup" anchor="last"/>
+        </action>
+    </actions>
 </idea-plugin>

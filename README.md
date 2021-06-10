@@ -1,8 +1,8 @@
 # only-new-warnings-plugin
 
 ![Build](https://github.com/borisPristupa/only-new-warnings-plugin/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+[![Version](https://img.shields.io/jetbrains/plugin/v/16870-only-new-warnings.svg)](https://plugins.jetbrains.com/plugin/16870-only-new-warnings)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/16870-only-new-warnings.svg)](https://plugins.jetbrains.com/plugin/16870-only-new-warnings)
 
 ## Template ToDo list
 - [x] Create a new [IntelliJ Platform Plugin Template][template] project.
@@ -14,11 +14,16 @@
 - [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
 
 <!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
+**This plugin adds:**
+  * a before-commit option for finding new problems in selected files
+  * a menu item (Analyze | Show New Problems) for searching new problems in the whole project
+  * a settings page (Editor | New Problems Analysis)
 
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
+**Purpose:**
 
-To keep everything working, do not remove `<!-- ... -->` sections. 
+Tired of seeing same problems, reported by the code analysis ? Struggling to find **only new problems** being added to the commit?
+
+This plugin allows you to find new problems with ease. A settings page will help you configure the plugin to find problems of the desired severities only.
 <!-- Plugin description end -->
 
 ## Installation
